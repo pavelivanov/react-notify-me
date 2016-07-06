@@ -25,6 +25,7 @@ export default class Container extends React.Component {
     const { notifications } = this.state
 
     const containerStyle = {
+      direction: 'rtl',
       display: 'flex',
       flexDirection: 'column',
       flexWrap: 'wrap',

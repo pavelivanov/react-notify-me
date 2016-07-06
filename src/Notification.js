@@ -5,7 +5,7 @@ import useSheet from './useSheet'
 
 @useSheet({
   container: {
-    marginLeft: 'auto'
+    direction: 'ltr'
   },
   notification: {
     minWidth: 200,
