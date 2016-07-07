@@ -19,9 +19,12 @@ export default class Container extends React.Component {
 
   addNotification = (params) => {
     const { notificationIds, notifications } = this.state
-    const id = createId()
+    const { config: { position } } = this.props
 
-    notificationIds.unshift(id)
+    const id = createId()
+    const insertMethod = position == 'topLeft' || position == 'topRight' ? 'unshift': 'push'
+  
+    notificationIds[insertMethod](id)
     notifications[id] = params
 
     this.setState({
@@ -45,17 +48,30 @@ export default class Container extends React.Component {
 
   render() {
     const { notificationIds, notifications } = this.state
+    const { config } = this.props
+    const { position } = config
 
-    const containerStyle = {
-      direction: 'rtl',
+    let containerStyle = {
       display: 'flex',
+      maxHeight: '100%',
       flexDirection: 'column',
-      flexWrap: 'wrap',
+      flexWrap: 'wrap-reverse',
       position: 'fixed',
-      top: 0,
-      right: 10,
-      bottom: 10,
       zIndex: '9998'
+    }
+
+    if (position == 'topLeft') {
+      containerStyle.top = 0
+      containerStyle.left = '5px'
+    } else if (position == 'topRight') {
+      containerStyle.top = 0
+      containerStyle.right = '5px'
+    } else if (position == 'bottomLeft') {
+      containerStyle.left = '5px'
+      containerStyle.bottom = 0
+    } else if (position == 'bottomRight') {
+      containerStyle.right = '5px'
+      containerStyle.bottom = 0
     }
 
 
@@ -68,6 +84,7 @@ export default class Container extends React.Component {
             return (
               <Notification
                 key={ id }
+                config={ config }
                 { ...notification }
                 onRemove={ () => this.removeNotification(id) }
               />

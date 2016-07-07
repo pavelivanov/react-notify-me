@@ -1,5 +1,5 @@
 import React from 'react'
-import NotificationsSystem from '../../src'
+import Container from './Container'
   
 
 let addNotification
@@ -8,9 +8,11 @@ class Notifications extends React.Component {
   componentDidMount() {
     addNotification = this.refs.notifications.addNotification
   }
-
+  
   render() {
-    return <NotificationsSystem ref="notifications" />
+    const { config } = this.props
+
+    return <Container ref="notifications" config={ config } />
   }
 }
 

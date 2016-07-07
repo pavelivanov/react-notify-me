@@ -1,6 +1,6 @@
 import React from 'react'
-import notify, { Notifications } from './Notifications'
-
+import notify, { Notifications } from '../../lib'
+  
 
 function getRandomInt(num) {
   return Math.floor(Math.random() * (num + 1));
@@ -28,7 +28,7 @@ export default class App extends React.Component {
     return (
       <div>
         <button onClick={ this.addNotification }>Add notification</button>
-        <Notifications />
+        <Notifications config={{ position: 'bottomRight' }} />
       </div>
     )
   }

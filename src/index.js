@@ -1,1 +1,4 @@
-export default from './Container'
+import notify, { Notifications } from './System'
+
+export default notify
+export { Notifications }

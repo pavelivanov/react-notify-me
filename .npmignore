@@ -1,6 +1,4 @@
 .*rc
-.eslintignore
 
 docs
-_src
 src
