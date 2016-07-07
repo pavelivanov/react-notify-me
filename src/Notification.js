@@ -44,16 +44,16 @@ import colors from './colors'
     opacity: 0.3
   },
   info: {
-    borderColor: `7px solid rgba(${colors.info.rgb}, 0.9)`
+    border: `7px solid rgba(${colors.info.rgb}, 0.9)`
   },
   success: {
-    borderColor: `7px solid rgba(${colors.success.rgb}, 0.9)`
+    border: `7px solid rgba(${colors.success.rgb}, 0.9)`
   },
   warning: {
-    borderColor: `7px solid rgba(${colors.warning.rgb}, 0.9)`
+    border: `7px solid rgba(${colors.warning.rgb}, 0.9)`
   },
   error: {
-    borderColor: `7px solid rgba(${colors.error.rgb}, 0.9)`
+    border: `7px solid rgba(${colors.error.rgb}, 0.9)`
   },
   closeButton: {
     width: 16,
@@ -136,7 +136,7 @@ export default class Dialog extends React.Component {
       [classes.error]:    type == 'error'
     })
   
-  
+
     return (
       <div className={ containerClassName }>
         <div className={ notificationClassName }>
