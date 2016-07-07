@@ -2,37 +2,49 @@ import React from 'react'
 import Notification from './Notification'
 
 
+const createId = (() => {
+  let id = +new Date()
+  return () => id++
+})()
+
 export default class Container extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      notifications: []
+      notificationIds: [],
+      notifications: {}
     }
   }
 
   addNotification = (params) => {
-    const { notifications } = this.state
+    const { notificationIds, notifications } = this.state
+    const id = createId()
 
-    notifications.push(params)
+    notificationIds.unshift(id)
+    notifications[id] = params
 
     this.setState({
+      notificationIds,
       notifications
     })
   }
 
-  removeNotification = (index) => {
-    const { notifications } = this.state
+  removeNotification = (id) => {
+    const { notificationIds, notifications } = this.state
+    const idIndex = notificationIds.indexOf(id)
 
-    notifications.splice(index, 1)
+    notificationIds.splice(idIndex, 1)
+    delete notifications[id]
 
     this.setState({
+      notificationIds,
       notifications
     })
   }
 
   render() {
-    const { notifications } = this.state
+    const { notificationIds, notifications } = this.state
 
     const containerStyle = {
       direction: 'rtl',
@@ -50,12 +62,14 @@ export default class Container extends React.Component {
     return (
       <div style={ containerStyle }>
         {
-          notifications.map((notification, index) => {
+          notificationIds.map((id) => {
+            const notification = notifications[id]
+
             return (
               <Notification
-                key={ index }
+                key={ id }
                 { ...notification }
-                onRemove={ () => this.removeNotification(index) }
+                onRemove={ () => this.removeNotification(id) }
               />
             )
           })

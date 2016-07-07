@@ -7,22 +7,42 @@ import colors from './colors'
 @useSheet({
   container: {
     direction: 'ltr',
-    marginTop: 10,
+    marginTop: 0,
     marginLeft: 10,
-    position: 'relative'
+    position: 'relative',
+    borderRadius: '3px',
+    transition: 'margin-top 0.15s linear 0.15s'
+  },
+  containerMounted: {
+    marginTop: 10
+  },
+  containerRemoved: {
+    overflow: 'hidden',
+    marginTop: 0
   },
   notification: {
     minWidth: 200,
     maxWidth: 360,
+    marginTop: '-100px',
     padding: '8px 25px 10px 15px',
     backgroundColor: '#fff',
     borderLeft: '7px solid #fff',
+    position: 'relative',
+    opacity: 0,
     fontSize: '14px',
     color: '#000',
     boxSizing: 'border-box',
     boxShadow: 'rgba(0,0,0, 0.25) 0 1px 4px',
     borderRadius: '3px',
-    transition: 'marginRight 0.3s linear'
+    transition: 'all 0.3s linear'
+  },
+  notificationMounted: {
+    marginTop: 0,
+    opacity: 1
+  },
+  notificationRemoved: {
+    marginTop: '-100px',
+    opacity: 0.3
   },
   info: {
     borderColor: `rgba(${colors.info.rgb}, 0.9)`
@@ -63,27 +83,60 @@ import colors from './colors'
   }
 })
 export default class Dialog extends React.Component {
-  componentWillMount() {
+  constructor() {
+    super()
 
+    this.state = {
+      mounted: false,
+      removed: false
+    }
+  }
+
+  componentDidMount() {
+    const self = this
+
+    setTimeout(() => {
+      self.setState({
+        mounted: true
+      })
+    }, 10)
+  }
+
+  remove = () => {
+    const { onRemove } = this.props
+
+    this.setState({
+      removed: true
+    })
+
+    setTimeout(onRemove, 300)
   }
 
 
   render() {
+    const { mounted, removed } = this.state
     const { sheet: { classes }, ...rest } = this.props
-    const { message, type, onRemove } = rest
+    const { message, type } = rest
+
+    const containerClassName = cx(classes.container, {
+      [classes.containerMounted]: mounted,
+      [classes.containerRemoved]: removed
+    })
 
     const notificationClassName = cx(classes.notification, {
+      [classes.notificationMounted]: mounted,
+      [classes.notificationRemoved]: removed,
       [classes.info]:     type == 'info',
       [classes.success]:  type == 'success',
       [classes.warning]:  type == 'warning',
       [classes.error]:    type == 'error'
     })
   
-  
+
     return (
-      <div className={ classes.container }>
-        <div className={ classes.closeButton } onClick={ onRemove }></div>
+      <div className={ containerClassName }>
         <div className={ notificationClassName }>
+          <div className={ classes.closeButton } onClick={ this.remove }></div>
           { message }
         </div>
       </div>
