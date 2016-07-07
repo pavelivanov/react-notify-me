@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import styles from './style'
+import styles from './style.css'
 
 
 export default class Notification extends React.Component {
