@@ -21,6 +21,16 @@ export default class Container extends React.Component {
     })
   }
 
+  removeNotification = (index) => {
+    const { notifications } = this.state
+
+    notifications.splice(index, 1)
+
+    this.setState({
+      notifications
+    })
+  }
+
   render() {
     const { notifications } = this.state
 
@@ -30,9 +40,9 @@ export default class Container extends React.Component {
       flexDirection: 'column',
       flexWrap: 'wrap',
       position: 'fixed',
-      top: '10px',
-      right: '10px',
-      bottom: '10px',
+      top: 0,
+      right: 10,
+      bottom: 10,
       zIndex: '9998'
     }
 
@@ -42,7 +52,11 @@ export default class Container extends React.Component {
         {
           notifications.map((notification, index) => {
             return (
-              <Notification key={ index } { ...notification } />
+              <Notification
+                key={ index }
+                { ...notification }
+                onRemove={ () => this.removeNotification(index) }
+              />
             )
           })
         }

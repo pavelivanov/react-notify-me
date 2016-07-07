@@ -6,9 +6,6 @@ let addNotification
 
 class Notifications extends React.Component {
   componentDidMount() {
-    console.log(333, this.refs.notifications);
-    console.log(444, this.refs.notifications.addNotification);
-
     addNotification = this.refs.notifications.addNotification
   }
 

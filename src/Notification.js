@@ -1,58 +1,90 @@
 import React from 'react'
 import cx from 'classnames'
 import useSheet from './useSheet'
+import colors from './colors'
 
 
 @useSheet({
   container: {
-    direction: 'ltr'
+    direction: 'ltr',
+    marginTop: 10,
+    marginLeft: 10,
+    position: 'relative'
   },
   notification: {
     minWidth: 200,
-    position: 'relative',
-    background: 'white',
+    maxWidth: 360,
+    padding: '8px 25px 10px 15px',
+    backgroundColor: '#fff',
+    borderLeft: '7px solid #fff',
     fontSize: '14px',
+    color: '#000',
     boxSizing: 'border-box',
-    boxShadow: 'rgba(0,0,0, 0.23) 0 3px 15px',
-    zIndex: 10
+    boxShadow: 'rgba(0,0,0, 0.25) 0 1px 4px',
+    borderRadius: '3px',
+    transition: 'marginRight 0.3s linear'
+  },
+  info: {
+    borderColor: `rgba(${colors.info.rgb}, 0.9)`
+  },
+  success: {
+    borderColor: `rgba(${colors.success.rgb}, 0.9)`
+  },
+  warning: {
+    borderColor: `rgba(${colors.warning.rgb}, 0.9)`
+  },
+  error: {
+    borderColor: `rgba(${colors.error.rgb}, 0.9)`
   },
   closeButton: {
-    width: 24,
-    height: 24,
-    lineHeight: '20px',
+    width: 16,
+    height: 16,
+    lineHeight: '14px',
     position: 'absolute',
-    top: 10,
-    right: 10,
-    opacity: 0.3,
-    fontSize: 30,
+    top: 2,
+    right: 2,
+    opacity: 0.25,
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
     cursor: 'pointer',
+    '&:before': {
+      content: '"×"',
+      display: 'block',
+      width: '100%',
+      height: '100%'
+    },
     '&:hover': {
       opacity: 1
     }
   },
   content: {
-    padding: 20
+
   }
 })
 export default class Dialog extends React.Component {
+  componentWillMount() {
+
+  }
+
+
   render() {
     const { sheet: { classes }, ...rest } = this.props
-    const { message, type } = rest
+    const { message, type, onRemove } = rest
 
     const notificationClassName = cx(classes.notification, {
-      [classes.info]: false,
-      [classes.success]: false,
-      [classes.warning]: false,
-      [classes.error]: false
+      [classes.info]:     type == 'info',
+      [classes.success]:  type == 'success',
+      [classes.warning]:  type == 'warning',
+      [classes.error]:    type == 'error'
     })
-
-
+  
+  
     return (
       <div className={ classes.container }>
+        <div className={ classes.closeButton } onClick={ onRemove }></div>
         <div className={ notificationClassName }>
-          <div className={ classes.content }>
-            { message }
-          </div>
+          { message }
         </div>
       </div>
     )
