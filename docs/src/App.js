@@ -19,7 +19,7 @@ const types = [ 'info', 'success', 'warning', 'error' ]
 export default class App extends React.Component {
   addNotification = () => {
     notify({
-      message: notifications[getRandomInt(4)],
+      content: notifications[getRandomInt(4)],
       type: types[getRandomInt(3)]
     })
   }

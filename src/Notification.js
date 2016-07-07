@@ -26,7 +26,6 @@ import colors from './colors'
     marginTop: '-100px',
     padding: '8px 25px 10px 15px',
     backgroundColor: '#fff',
-    borderLeft: '7px solid #fff',
     position: 'relative',
     opacity: 0,
     fontSize: '14px',
@@ -45,16 +44,16 @@ import colors from './colors'
     opacity: 0.3
   },
   info: {
-    borderColor: `rgba(${colors.info.rgb}, 0.9)`
+    borderColor: `7px solid rgba(${colors.info.rgb}, 0.9)`
   },
   success: {
-    borderColor: `rgba(${colors.success.rgb}, 0.9)`
+    borderColor: `7px solid rgba(${colors.success.rgb}, 0.9)`
   },
   warning: {
-    borderColor: `rgba(${colors.warning.rgb}, 0.9)`
+    borderColor: `7px solid rgba(${colors.warning.rgb}, 0.9)`
   },
   error: {
-    borderColor: `rgba(${colors.error.rgb}, 0.9)`
+    borderColor: `7px solid rgba(${colors.error.rgb}, 0.9)`
   },
   closeButton: {
     width: 16,
@@ -77,9 +76,6 @@ import colors from './colors'
     '&:hover': {
       opacity: 1
     }
-  },
-  content: {
-
   }
 })
 export default class Dialog extends React.Component {
@@ -89,6 +85,14 @@ export default class Dialog extends React.Component {
     this.state = {
       mounted: false,
       removed: false
+    }
+  }
+
+  componentWillMount() {
+    const { autoDismiss, onRemove } = this.props
+
+    if (autoDismiss) {
+      setTimeout(onRemove, autoDismiss * 1000)
     }
   }
 
@@ -116,7 +120,7 @@ export default class Dialog extends React.Component {
   render() {
     const { mounted, removed } = this.state
     const { sheet: { classes }, ...rest } = this.props
-    const { message, type } = rest
+    const { content, type } = rest
 
     const containerClassName = cx(classes.container, {
       [classes.containerMounted]: mounted,
@@ -132,12 +136,12 @@ export default class Dialog extends React.Component {
       [classes.error]:    type == 'error'
     })
   
-
+  
     return (
       <div className={ containerClassName }>
         <div className={ notificationClassName }>
           <div className={ classes.closeButton } onClick={ this.remove }></div>
-          { message }
+          { content }
         </div>
       </div>
     )
