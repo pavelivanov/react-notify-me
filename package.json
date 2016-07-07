@@ -1,6 +1,6 @@
 {
   "name": "react-notify-me",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "React Notification",
   "author": {
     "name": "Pavel Ivanov",
@@ -20,8 +20,8 @@
   "scripts": {
     "clean": "rimraf ./lib",
     "dev": "babel -w ./src --out-dir ./lib",
-    "stylus": "stylus -c -w ./src/style.styl -o ./lib/style.css",
-    "build": "babel ./src --out-dir ./lib"
+    "stylus": "stylus -w ./src/style.styl -o ./lib/style.css",
+    "build": "npm run clean && babel ./src --out-dir ./lib && stylus ./src/style.styl -o ./lib/style.css"
   },
   "dependencies": {
     "classnames": "^2.2.5"
