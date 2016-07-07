@@ -44,16 +44,16 @@ import colors from './colors'
     opacity: 0.3
   },
   info: {
-    border: `7px solid rgba(${colors.info.rgb}, 0.9)`
+    borderLeft: `7px solid rgba(${colors.info.rgb}, 0.9)`
   },
   success: {
-    border: `7px solid rgba(${colors.success.rgb}, 0.9)`
+    borderLeft: `7px solid rgba(${colors.success.rgb}, 0.9)`
   },
   warning: {
-    border: `7px solid rgba(${colors.warning.rgb}, 0.9)`
+    borderLeft: `7px solid rgba(${colors.warning.rgb}, 0.9)`
   },
   error: {
-    border: `7px solid rgba(${colors.error.rgb}, 0.9)`
+    borderLeft: `7px solid rgba(${colors.error.rgb}, 0.9)`
   },
   closeButton: {
     width: 16,
