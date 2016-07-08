@@ -55,7 +55,7 @@ export default class Notification extends React.Component {
 
   render() {
     const { mounted, removed } = this.state
-    const { config: { position }, content, type } = this.props
+    const { config: { position }, content, type, contentType = 'text' } = this.props
 
     const containerClassName = cx(styles.container, {
       [styles.containerMounted]: mounted,
@@ -71,12 +71,17 @@ export default class Notification extends React.Component {
       [styles.error]:    type == 'error'
     })
 
-
+    
     return (
       <div className={ containerClassName } data-position={ position }>
         <div ref="notification" className={ notificationClassName } data-position={ position }>
           <div className={ styles.closeButton } onClick={ this.remove }></div>
-          <div dangerouslySetInnerHTML={{ __html: content }}></div>
+          {
+            (contentType == 'text' || contentType == 'component') && <div>{ content }</div>
+          }
+          {
+            contentType == 'html' && <div dangerouslySetInnerHTML={{ __html: content }}></div>
+          }
         </div>
       </div>
     )

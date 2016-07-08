@@ -4,13 +4,18 @@ import Container from './Container'
 
 let addNotification
 
+const defaultConfig = {
+  position: 'rightTop'
+}
+
+
 class Notifications extends React.Component {
   componentDidMount() {
     addNotification = this.refs.notifications.addNotification
   }
   
   render() {
-    const { config } = this.props
+    const config = { ...defaultConfig, ...this.props.config }
 
     return <Container ref="notifications" config={ config } />
   }
