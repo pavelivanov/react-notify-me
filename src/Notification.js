@@ -76,7 +76,7 @@ export default class Notification extends React.Component {
       <div className={ containerClassName } data-position={ position }>
         <div ref="notification" className={ notificationClassName } data-position={ position }>
           <div className={ styles.closeButton } onClick={ this.remove }></div>
-          { content }
+          <div dangerouslySetInnerHTML={{ __html: content }}></div>
         </div>
       </div>
     )
