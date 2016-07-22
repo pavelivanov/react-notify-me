@@ -1,6 +1,6 @@
 import React from 'react'
-import notify, { Notifications } from '../../lib'
-  
+import notify, { Notifications } from '../lib'
+
 
 function getRandomInt(num) {
   return Math.floor(Math.random() * (num + 1));
@@ -25,8 +25,14 @@ export default class App extends React.Component {
   }
 
   render() {
+    const style = {
+      backgroundImage: `url(${ require('./images/bg.jpg') })`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }
+
     return (
-      <div>
+      <div style={ style }>
         <button onClick={ this.addNotification }>Add notification</button>
         <Notifications config={{ position: 'bottomRight' }} />
       </div>
