@@ -20,6 +20,7 @@
   "scripts": {
     "clean": "rimraf ./lib",
     "npu": "npu -d",
+    "npu:build": "npu",
     "dev": "babel -w ./src --out-dir ./lib",
     "stylus": "stylus -w ./src/style.styl -o ./lib/style.css",
     "build": "npm run clean && babel ./src --out-dir ./lib && stylus ./src/style.styl -o ./lib/style.css"
@@ -36,7 +37,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
-    "npu": "0.0.11",
+    "npu": "0.0.14",
     "react-dom": "^15.2.1",
     "rimraf": "^2.5.0",
     "style-loader": "^0.13.1",

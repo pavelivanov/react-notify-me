@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import styles from './style.css'
+import style from './style.css'
 
 
 export default class Notification extends React.Component {
@@ -13,33 +13,18 @@ export default class Notification extends React.Component {
     }
   }
 
-  componentWillMount() {
-    const { autoDismiss, onRemove } = this.props
-
-    if (autoDismiss) {
-      setTimeout(onRemove, autoDismiss * 1000)
-    }
-  }
-
   componentDidMount() {
-    const self = this
-    const { config: { position } } = self.props
-
-    const notification    = self.refs.notification
-    const height          = self.refs.notification.clientHeight
-    const cssKey          = position == 'topLeft' || position == 'topRight' ? 'marginTop' : 'marginBottom'
-
-    notification.style[cssKey] = `-${height}px`
+    const { config, autoDismiss } = this.props
 
     setTimeout(() => {
-      notification.style.transition = 'all 0.2s linear'
-      notification.style.opacity = 1
-      notification.style[cssKey] = 0
-
-      self.setState({
+      this.setState({
         mounted: true
+      }, () => {
+        if (config.autoDismiss || autoDismiss) {
+          setTimeout(this.remove, config.autoDismiss || autoDismiss)
+        }
       })
-    }, 10)
+    }, 0)
   }
 
   remove = () => {
@@ -47,9 +32,9 @@ export default class Notification extends React.Component {
 
     this.setState({
       removed: true
+    }, () => {
+      setTimeout(onRemove, 30000)
     })
-
-    setTimeout(onRemove, 300)
   }
 
 
@@ -57,31 +42,46 @@ export default class Notification extends React.Component {
     const { mounted, removed } = this.state
     const { config: { position }, content, type, contentType = 'text' } = this.props
 
-    const containerClassName = cx(styles.container, {
-      [styles.containerMounted]: mounted,
-      [styles.containerRemoved]: removed
+    const containerClassName = cx(style.container, {
+      [style.containerMounted]: mounted,
+      [style.containerRemoved]: removed
     })
 
-    const notificationClassName = cx(styles.notification, {
-      [styles.notificationMounted]: mounted,
-      [styles.notificationRemoved]: removed,
-      [styles.info]:     type == 'info',
-      [styles.success]:  type == 'success',
-      [styles.warning]:  type == 'warning',
-      [styles.error]:    type == 'error'
+    const notificationClassName = cx(style.notification, {
+      [style.notificationMounted]: mounted,
+      [style.notificationRemoved]: removed,
+      [style.info]:     type == 'info',
+      [style.success]:  type == 'success',
+      [style.warning]:  type == 'warning',
+      [style.error]:    type == 'error'
     })
 
-    
+    const cssKey = position == 'topLeft' || position == 'topRight' ? 'marginTop' : 'marginBottom'
+
+    const notificationStyle = {
+      [cssKey]: '-100%'
+    }
+
+
     return (
-      <div className={ containerClassName } data-position={ position }>
-        <div ref="notification" className={ notificationClassName } data-position={ position }>
-          <div className={ styles.closeButton } onClick={ this.remove }></div>
-          {
-            (contentType == 'text' || contentType == 'component') && <div>{ content }</div>
-          }
-          {
-            contentType == 'html' && <div dangerouslySetInnerHTML={{ __html: content }}></div>
-          }
+      <div
+        className={ containerClassName }
+        data-position={ position }
+      >
+        <div
+          className={ notificationClassName }
+          style={notificationStyle}
+          data-position={ position }
+        >
+          <div className={ style.closeButton } onClick={ this.remove }></div>
+          <div className={ style.content }>
+            {
+              (contentType == 'text' || contentType == 'component') && <div>{ content }</div>
+            }
+            {
+              contentType == 'html' && <div dangerouslySetInnerHTML={{ __html: content }}></div>
+            }
+          </div>
         </div>
       </div>
     )

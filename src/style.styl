@@ -9,7 +9,7 @@ $color_error      = #d01414
   margin-right 5px
   position relative
   border-radius 3px
-  transition margin-top 0.1s linear 0.1s, margin-bottom 0.1s linear 0.1s
+  transition margin-top 0.1s linear 0.4s, margin-bottom 0.1s linear 0.4s
   &[data-position=topLeft]
   &[data-position=topRight]
     margin-top 0
@@ -27,6 +27,7 @@ $color_error      = #d01414
 
 .containerRemoved
   overflow: hidden
+  transition margin-top 0.1s linear 0s, margin-bottom 0.1s linear 0s
   &[data-position=topLeft]
   &[data-position=topRight]
     margin-top 0
@@ -38,17 +39,16 @@ $color_error      = #d01414
 .notification
   min-width 200px
   max-width 360px
-  padding 8px 25px 10px 15px
   background-color #fff
   position relative
   opacity 0
   font-size 14px
   color #000
-  box-sizing border-box
   box-shadow rgba(0,0,0, 0.25) 0 1px 4px
   border-radius 3px
 
 .notificationMounted
+  transition all 0.4s linear
   opacity 1 !important
   &[data-position=topLeft]
   &[data-position=topRight]
@@ -61,10 +61,10 @@ $color_error      = #d01414
   opacity 0.5 !important
   &[data-position=topLeft]
   &[data-position=topRight]
-    margin-top -100px !important
+    margin-top -100% !important
   &[data-position=bottomLeft]
   &[data-position=bottomRight]
-    margin-bottom -100px !important
+    margin-bottom -100% !important
 
 .info
   border-left 7px solid rgba($color_info, 0.9)
@@ -97,3 +97,6 @@ $color_error      = #d01414
     height 100%
   &:hover
     opacity 1
+
+.content
+  padding 8px 25px 10px 15px
