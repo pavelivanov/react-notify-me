@@ -33,7 +33,7 @@ export default class Notification extends React.Component {
     this.setState({
       removed: true
     }, () => {
-      setTimeout(onRemove, 30000)
+      setTimeout(onRemove, 300)
     })
   }
 
