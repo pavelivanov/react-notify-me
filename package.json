@@ -19,6 +19,7 @@
   "license": "MIT",
   "main": "./lib",
   "scripts": {
+    "prepublish": "npm run build",
     "clean": "rimraf ./lib",
     "npu": "npu -d",
     "npu:build": "npu",
