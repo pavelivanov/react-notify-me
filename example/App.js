@@ -32,7 +32,7 @@ const notifications = [
 
 export default class App extends React.Component {
   addNotification = () => {
-    notify(notifications[0])
+    notify(notifications[getRandomInt(3)])
   }
 
   render() {
