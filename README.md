@@ -64,4 +64,4 @@ contentType | String | 'text' | Type of Content for render method. Options: 'tex
 
 ##Example
 
-To run example download repository, install dependencies and make `npm run npu`
+To run example download repository, install dependencies and make `npm run npu -d`
