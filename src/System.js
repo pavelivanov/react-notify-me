@@ -5,7 +5,8 @@ import Container from './Container'
 let addNotification
 
 const defaultConfig = {
-  position: 'rightTop'
+  autoDismiss: false,
+  position: 'topRight',
 }
 
 
