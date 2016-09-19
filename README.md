@@ -1,3 +1,7 @@
+<p>
+  <img src="./images/logo.png" height="130" />
+</p>
+
 # React notification
 
 [![Npm Version](https://badge.fury.io/js/react-notify-me.svg)](https://www.npmjs.com/package/react-notify-me)
