@@ -10,8 +10,6 @@ React component for notifications
 [![Month Downloads](https://img.shields.io/npm/dm/react-notify-me.svg)](http://npm-stat.com/charts.html?package=react-notify-me)
 [![Npm Licence](https://img.shields.io/npm/l/react-notify-me.svg)](https://www.npmjs.com/package/react-notify-me)
 
-[![NPM](https://nodei.co/npm/react-notify-me.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-notify-me/)
-
 
 ## Overview
 
