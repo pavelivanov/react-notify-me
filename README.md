@@ -11,16 +11,16 @@ React component for notifications
 [![Npm Licence](https://img.shields.io/npm/l/react-notify-me.svg)](https://www.npmjs.com/package/react-notify-me)
 
 
-## Overview
-
-![Example](./images/example.gif)
-
-
 ## Install
 
 ```bash
 npm install --save react-notify-me
 ```
+
+
+## Overview
+
+![Example](./images/example.gif)
 
 
 ## Usage
