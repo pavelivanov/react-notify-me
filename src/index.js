@@ -1,4 +1,10 @@
-import notify, { Notifications } from './System'
+import NotificationConductor, { notify } from './NotificationConductor'
+import Notification from './Notification'
+
 
 export default notify
-export { Notifications }
+
+export {
+  NotificationConductor,
+  Notification,
+}

@@ -1,0 +1,60 @@
+.react-notify-me-conductor {
+  display: flex;
+  max-height: 100%;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  position: fixed;
+  top: 0;
+  right: 5px;
+  z-index: 306;
+}
+
+.react-notify-me-notification-container {
+  margin-left: 5px;
+  margin-right: 5px;
+  position: relative;
+  transition:
+    margin-top 0.1s linear 0s,
+    margin-bottom 0.1s linear 0s;
+  margin-top: 0;
+}
+
+.react-notify-me-notification-container__mounted {
+  margin-top: 10px;
+}
+
+.react-notify-me-notification-container__removed {
+  overflow: hidden;
+  margin-top: 0;
+  transition:
+    margin-top 0.1s linear 0s,
+    margin-bottom 0.1s linear 0s;
+}
+
+.react-notify-me-notification {
+  width: 400px;
+  background-color: #fff;
+  position: relative;
+  opacity: 0;
+  font-size: 12px;
+  color: #000;
+  user-select: none;
+  border-radius: 3px;
+  box-shadow: rgba(0,0,0, 0.4) 0 2px 10px;
+}
+
+.react-notify-me-notification__mounted {
+  margin-top: 0 !important;
+  opacity: 1;
+  transition: all 0.1s linear;
+}
+
+.react-notify-me-notification__removed {
+  opacity: 0.5;
+  transition: all 0.1s linear;
+}
+
+.react-notify-me-notification-content {
+  padding: 15px 25px;
+  font-size: 14px;
+}

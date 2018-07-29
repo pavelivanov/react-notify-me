@@ -1,89 +1,93 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
-import style from './style.css'
 
 
-export default class Notification extends React.Component {
+const classes = {
+  notificationContainer: 'react-notify-me-notification-container',
+  notificationContainerMounted: 'react-notify-me-notification-container__mounted',
+  notificationContainerRemoved: 'react-notify-me-notification-container__removed',
+  notification: 'react-notify-me-notification',
+  notificationMounted: 'react-notify-me-notification__mounted',
+  notificationRemoved: 'react-notify-me-notification__removed',
+  notificationContent: 'react-notify-me-notification-content',
+}
+
+class Notification extends PureComponent {
+
   constructor() {
     super()
 
+    this.closeTimer = null
+
     this.state = {
       mounted: false,
-      removed: false
+      removed: false,
     }
   }
 
-  componentDidMount() {
-    const { config, autoDismiss } = this.props
-
-    setTimeout(() => {
-      this.setState({
-        mounted: true
-      }, () => {
-        if (config.autoDismiss || autoDismiss) {
-          setTimeout(this.remove, config.autoDismiss || autoDismiss)
-        }
-      })
-    }, 0)
+  componentWillUnmount() {
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer)
+    }
   }
 
-  remove = () => {
-    const { onRemove } = this.props
+  onMount = (el) => {
+    const { mounted } = this.state
+
+    if (!mounted && el) {
+      el.style['margin-top'] = `-${el.clientHeight}px`
+
+      setTimeout(() => {
+        this.setState({
+          mounted: true,
+        }, () => {
+          this.closeTimer = setTimeout(this.close, 5000)
+        })
+      }, 30)
+    }
+  }
+
+  close = () => {
+    const { id, onClose } = this.props
+
+    clearTimeout(this.closeTimer)
+    this.closeTimer = null
 
     this.setState({
-      removed: true
+      removed: true,
     }, () => {
-      setTimeout(onRemove, 300)
+      setTimeout(() => {
+        onClose(id)
+      }, 300)
     })
   }
-
 
   render() {
     const { mounted, removed } = this.state
-    const { config: { position }, content, type, contentType = 'text' } = this.props
+    const { children } = this.props
 
-    const containerClassName = cx(style.container, {
-      [style.containerMounted]: mounted,
-      [style.containerRemoved]: removed
+    const containerClassName = cx([classes.notificationContainer], {
+      [classes.notificationContainerMounted]: mounted,
+      [classes.notificationContainerRemoved]: removed,
     })
 
-    const notificationClassName = cx(style.notification, {
-      [style.notificationMounted]: mounted,
-      [style.notificationRemoved]: removed,
-      [style.info]:     type == 'info',
-      [style.success]:  type == 'success',
-      [style.warning]:  type == 'warning',
-      [style.error]:    type == 'error'
+    const notificationClassName = cx([classes.notification], {
+      [classes.notificationMounted]: removed ? false : mounted,
+      [classes.notificationRemoved]: removed,
     })
 
-    const cssKey = position == 'topLeft' || position == 'topRight' ? 'marginTop' : 'marginBottom'
-
-    const notificationStyle = {
-      [cssKey]: '-100%'
-    }
-
+    const notificationContentClassName = classes.notificationContent
 
     return (
-      <div
-        className={ containerClassName }
-        data-position={ position }
-      >
-        <div
-          className={ notificationClassName }
-          style={notificationStyle}
-          data-position={ position }
-        >
-          <div className={ style.closeButton } onClick={ this.remove }></div>
-          <div className={ style.content }>
-            {
-              (contentType == 'text' || contentType == 'component') && <div>{ content }</div>
-            }
-            {
-              contentType == 'html' && <div dangerouslySetInnerHTML={{ __html: content }}></div>
-            }
+      <div className={containerClassName}>
+        <div className={notificationClassName} ref={this.onMount} onClick={this.close}>
+          <div className={notificationContentClassName}>
+            {children}
           </div>
         </div>
       </div>
     )
   }
 }
+
+export default Notification

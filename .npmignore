@@ -2,3 +2,5 @@
 
 docs
 src
+*.log
+*-lock.*

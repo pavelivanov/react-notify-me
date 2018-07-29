@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "copy-lib": "rimraf ./node_modules/react-notify-me && cp -r ../lib ./node_modules/react-notify-me",
+    "start": "npm run copy-lib && react-scripts start",
+    "build": "npm run copy-lib && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
